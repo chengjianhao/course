@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zafu.engineersystem.mapper.EngMapper">
+    <select id="getAllEng" resultType="Engineer">
+        select * from engineer
+    </select>
+
+    <insert id="addEng" parameterType="Engineer">
+        insert into engineer (engineer_name,engineer_sex,engineer_address,engineer_telephone,engineer_birthday,engineer_native,engineer_seniority,engineer_salary,engineer_education) values(#{engineerName},#{engineerSex},#{engineerAddress},#{engineerTelephone},#{engineerBirthday},#{engineerNative},#{engineerSeniority},#{engineerSalary},#{engineerEducation})
+    </insert>
+
+    <delete id="deleteEng" parameterType="String">
+        delete from engineer where engineer_name=#{engineerName}
+    </delete>
+
+    <update id="updateEng" parameterType="Engineer">
+        update engineer set engineer_name=#{engineerName},engineer_sex=#{engineerSex},engineer_address=#{engineerAddress},engineer_telephone=#{engineerTelephone},engineer_birthday=#{engineerBirthday},engineer_native=#{engineerNative},engineer_seniority=#{engineerSeniority},engineer_salary=#{engineerSalary},engineer_education=#{engineerEducation}
+    </update>
+
+    <select id="getEngByName" parameterType="String" resultType="Engineer">
+        select * from engineer where engineer_name=#{engineerName};
+    </select>
+</mapper>

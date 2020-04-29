@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h3>修改工程师信息</h3>
+            </div>
+        </div>
+    </div>
+
+    <form th:action="@{/updateEng}" method="post">
+        <input type="hidden" name="id" th:value="${eng.getEngineerId()}">
+        <div class="form-group">
+            <label>姓名</label>
+            <input th:value="${eng.getEngineerName()}" type="text" name="engineerName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>性别</label>
+            <div class="form-check form-check-inline" >
+                <input th:checked="${eng.getEngineerSex()==1}" class="form-check-input" type="radio" name="engineerSex" value="1">
+                <label class="form-check-label">男</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input th:checked="${eng.getEngineerSex()==0}" class="form-check-input" type="radio" name="engineerSex" value="0">
+                <label class="form-check-label">女</label>
+            </div>
+        </div>
+        <div class="form-group">
+            <label>地址</label>
+            <input th:value="${eng.getEngineerAddress()}" type="text" name="engineerAddress" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>电话</label>
+            <input th:value="${eng.getEngineerTelephone()}" type="text" name="engineerTelephone" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>生日</label>
+            <input th:value="${eng.getEngineerBirthday()}" type="date" name="engineerBirthday" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>籍贯</label>
+            <input th:value="${eng.getEngineerNative()}" type="text" name="engineerNative" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>工龄</label>
+            <input th:value="${eng.getEngineerSeniority()}" type="number" name="engineerSeniority" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>工资</label>
+            <input th:value="${eng.getEngineerSalary()}" type="number" name="engineerSalary" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>学历</label>
+            <input th:value="${eng.getEngineerEducation()}" type="text" name="engineerEducation" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">确定修改</button>
+    </form>
+</div>
+</body>
+</html>

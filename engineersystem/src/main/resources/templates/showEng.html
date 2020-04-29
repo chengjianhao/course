@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <title>欢迎使用工程师资料管理系统</title>
+        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    </head>
+<body><a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h3>工程师信息管理</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 column" >
+                <a class="btn btn-primary" th:href="@{/toAddEng}">新增工程师</a>
+            </div>
+            <div class="col-md-4 column" ></div>
+            <div class="col-md-4 column" >
+                <form th:action="@{/queryEng}" method="post" style="float: right" class="form-inline">
+                    <input type="text" name="engineerName" class="form-control" placeholder="请输入要查询的工程师姓名">
+                    <input type="submit" value="查询" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table=striped">
+                <thead>
+                <tr>
+                    <th>工号</th>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>地址</th>
+                    <th>电话</th>
+                    <th>生日</th>
+                    <th>籍贯</th>
+                    <th>工龄</th>
+                    <th>工资</th>
+                    <th>学历</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="engs:${eng}">
+                    <td th:text="${engs.getEngineerId()}"></td>
+                    <td th:text="${engs.getEngineerName()}"></td>
+                    <div th:switch="${engs.getEngineerSex()}">
+                        <td th:case="1">男</td>
+                        <td th:case="0">女</td>
+                    </div>
+                    <td th:text="${engs.getEngineerAddress()}"></td>
+                    <td th:text="${engs.getEngineerTelephone()}"></td>
+                    <td th:date="${engs.getEngineerBirthday()}"></td>
+                    <td th:text="${engs.getEngineerNative()}"></td>
+                    <td th:text="${engs.getEngineerSeniority()}"></td>
+                    <td th:text="${engs.getEngineerSalary()}"></td>
+                    <td th:text="${engs.getEngineerEducation()}"></td>
+                    <td>
+                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerName()}">编辑</a> |
+                        <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerName()}">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>
+
+
+
+
+
