@@ -17,7 +17,7 @@
     </div>
 
     <form th:action="@{/updateEng}" method="post">
-        <input type="hidden" name="id" th:value="${eng.getEngineerId()}">
+        <input type="hidden" name="engineerId" th:value="${eng.getEngineerId()}">
         <div class="form-group">
             <label>姓名</label>
             <input th:value="${eng.getEngineerName()}" type="text" name="engineerName" class="form-control" required>

@@ -61,14 +61,15 @@
                     </div>
                     <td th:text="${engs.getEngineerAddress()}"></td>
                     <td th:text="${engs.getEngineerTelephone()}"></td>
-                    <td th:date="${engs.getEngineerBirthday()}"></td>
+                    <td th:text="${#dates.format(engs.getEngineerBirthday(),'yyyy-MM-dd')}"></td>
                     <td th:text="${engs.getEngineerNative()}"></td>
                     <td th:text="${engs.getEngineerSeniority()}"></td>
                     <td th:text="${engs.getEngineerSalary()}"></td>
                     <td th:text="${engs.getEngineerEducation()}"></td>
                     <td>
-                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerName()}">编辑</a> |
-                        <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerName()}">删除</a>
+                        <!--采用id作为标签索引，避免重名-->
+                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a> |
+                        <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerId()}">删除</a>
                     </td>
                 </tr>
                 </tbody>

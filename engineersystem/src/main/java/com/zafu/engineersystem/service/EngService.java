@@ -12,7 +12,11 @@ public interface EngService {
 
     int deleteEng(String engineerName);
 
+    int deleteEngById(int engineerId);
+
     int updateEng(Engineer engineer);
 
     Engineer getEngByName(String engineerName);
+
+    Engineer getEngById(int engineerId);
 }

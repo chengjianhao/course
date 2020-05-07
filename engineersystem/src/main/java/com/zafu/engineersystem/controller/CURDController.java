@@ -50,9 +50,9 @@ public class CURDController {
     }
 
     //跳转到修改工程师信息页面
-    @RequestMapping("/toUpdateEng/{engineerName}")
-    public String toUpdateEng(@PathVariable("engineerName")String engineerName,Model model){
-        Engineer eng = engService.getEngByName(engineerName);
+    @RequestMapping("/toUpdateEng/{engineerId}")
+    public String toUpdateEng(@PathVariable("engineerId")int engineerId,Model model){
+        Engineer eng = engService.getEngById(engineerId);
         model.addAttribute("eng",eng);
         return "updateEng";
     }
@@ -60,12 +60,12 @@ public class CURDController {
     @RequestMapping("/updateEng")
     public String updateEng(Engineer engineer, Model model){
         engService.updateEng(engineer);
-        return "showEng";
+        return "redirect:/showAllEng";
     }
 
-    @RequestMapping("/deleteEng/{engineerName}")
-    public String deleteEng(@PathVariable("engineerName") String engineerName){
-        engService.deleteEng(engineerName);
-        return "showEng";
+    @RequestMapping("/deleteEng/{engineerId}")
+    public String deleteEng(@PathVariable("engineerId") int engineerId){
+        engService.deleteEngById(engineerId);
+        return "redirect:/showAllEng";
     }
 }

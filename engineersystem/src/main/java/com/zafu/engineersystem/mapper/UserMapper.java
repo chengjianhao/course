@@ -10,4 +10,5 @@ public interface UserMapper {
 
     //根据用户名获取用户信息
     User getUserByName(String username);
+
 }

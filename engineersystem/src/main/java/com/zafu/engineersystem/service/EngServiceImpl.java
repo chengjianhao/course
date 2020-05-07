@@ -28,6 +28,11 @@ public class EngServiceImpl implements EngService{
     }
 
     @Override
+    public int deleteEngById(int engineerId) {
+        return engMapper.deleteEngById(engineerId);
+    }
+
+    @Override
     public int updateEng(Engineer engineer) {
         return engMapper.updateEng(engineer);
     }
@@ -35,5 +40,10 @@ public class EngServiceImpl implements EngService{
     @Override
     public Engineer getEngByName(String engineerName) {
         return engMapper.getEngByName(engineerName);
+    }
+
+    @Override
+    public Engineer getEngById(int engineerId) {
+        return engMapper.getEngById(engineerId);
     }
 }

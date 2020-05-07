@@ -15,11 +15,19 @@
         delete from engineer where engineer_name=#{engineerName}
     </delete>
 
+    <delete id="deleteEngById" parameterType="int">
+        delete from engineer where engineer_id=#{engineerId}
+    </delete>
+
     <update id="updateEng" parameterType="Engineer">
-        update engineer set engineer_name=#{engineerName},engineer_sex=#{engineerSex},engineer_address=#{engineerAddress},engineer_telephone=#{engineerTelephone},engineer_birthday=#{engineerBirthday},engineer_native=#{engineerNative},engineer_seniority=#{engineerSeniority},engineer_salary=#{engineerSalary},engineer_education=#{engineerEducation}
+        update engineer set engineer_name=#{engineerName},engineer_sex=#{engineerSex},engineer_address=#{engineerAddress},engineer_telephone=#{engineerTelephone},engineer_birthday=#{engineerBirthday},engineer_native=#{engineerNative},engineer_seniority=#{engineerSeniority},engineer_salary=#{engineerSalary},engineer_education=#{engineerEducation} where engineer_id=#{engineerId}
     </update>
 
     <select id="getEngByName" parameterType="String" resultType="Engineer">
         select * from engineer where engineer_name=#{engineerName};
+    </select>
+
+    <select id="getEngById" parameterType="int" resultType="Engineer">
+        select * from engineer where engineer_id=#{engineerId};
     </select>
 </mapper>
