@@ -37,6 +37,14 @@ public class CURDController {
         return "showEng";
     }
 
+    //查询所有工程师工资信息
+    @RequestMapping("/showAllEngSalary")
+    public String showAllEngSalary(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "showEng";
+    }
+
     //新增工程师信息
     @RequestMapping("/toAddEng")
     public String toAddEmp(){

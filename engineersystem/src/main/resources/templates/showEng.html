@@ -66,11 +66,16 @@
                     <td th:text="${engs.getEngineerSeniority()}"></td>
                     <td th:text="${engs.getEngineerSalary()}"></td>
                     <td th:text="${engs.getEngineerEducation()}"></td>
-                    <td>
-                        <!--采用id作为标签索引，避免重名-->
-                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a> |
-                        <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerId()}">删除</a>
-                    </td>
+                    <div th:switch="${session.identity}">
+                        <!--采用id作为标签索引，避免重名 -->
+                        <td th:case="0">
+                            <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a> |
+                            <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerId()}">删除</a>
+                        </td>
+                        <td th:case="1">
+                        </td>
+                    </div>
+
                 </tr>
                 </tbody>
             </table>

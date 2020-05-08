@@ -34,6 +34,7 @@ public class LoginController {
                 if (password.equals(user.getPassword())){
                     List<Engineer> allEmp = engService.getAllEng();
                     session.setAttribute("userInfo",username);
+                    session.setAttribute("identity",user.getIdentity());
                     return "redirect:/showAllEng";
                 }else {
                     //密码不正确时
