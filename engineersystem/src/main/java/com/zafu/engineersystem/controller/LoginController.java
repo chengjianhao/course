@@ -31,12 +31,19 @@ public class LoginController {
             //用户存在时
             if(user!=null){
                 //用户名密码都正确时
-                if (password.equals(user.getPassword())){
+                if (password.equals(user.getPassword()) && user.getIdentity() == 0){
+                    List<User> allUser = userService.getAllUser();
+                    session.setAttribute("userInfo",username);
+                    session.setAttribute("identity",user.getIdentity());
+                    return "redirect:/showAllUser";
+                }
+                if (password.equals(user.getPassword()) && user.getIdentity() == 1){
                     List<Engineer> allEmp = engService.getAllEng();
                     session.setAttribute("userInfo",username);
                     session.setAttribute("identity",user.getIdentity());
                     return "redirect:/showAllEng";
-                }else {
+                }
+                else {
                     //密码不正确时
                     model.addAttribute("msg","用户名或者密码错误");
                     return "index";

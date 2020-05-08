@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>欢迎使用工程师资料管理系统</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body><a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h3>用户信息管理</h3>
+            </div>
+        </div>
+
+        <div class="row">
+            <div th:switch="${session.identity}">
+            <!--采用id作为标签索引，避免重名 -->
+            <td th:case="0">
+                <div class="col-md-4 column" >
+                    <a class="btn btn-primary" th:href="@{/showAllEng}">工程师管理</a>
+                    <a class="btn btn-primary" th:href="@{/toAddUser}">新增用户</a>
+                </div>
+            </td>
+            <td th:case="1"><div class="col-md-4 column" ></div></td>
+        </div>
+            <div class="col-md-4 column" ></div>
+            <div class="col-md-4 column" >
+                <form th:action="@{/queryUser}" method="post" style="float: right" class="form-inline">
+                    <input type="text" name="username" class="form-control" placeholder="请输入要查询的用户姓名">
+                    <input type="submit" value="查询" class="btn btn-primary">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <table class="table table-hover table=striped">
+                <thead>
+                <tr>
+                    <th>工号</th>
+                    <th>姓名</th>
+                    <th>密码</th>
+                    <th>身份</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="users:${user}">
+                    <td th:text="${users.getId()}"></td>
+                    <td th:text="${users.getUsername()}"></td>
+                    <td th:text="${users.getPassword()}"></td>
+                    <div th:switch="${users.getIdentity()}">
+                        <td th:case="1">普通用户</td>
+                        <td th:case="0">管理员</td>
+                    </div>
+
+                    <td>
+                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateUser/}+${users.getId()}">编辑</a> |
+                        <a class="btn btn-sm btn-danger" th:href="@{/deleteUser/}+${users.getId()}">删除</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>
+
+
+
+
+
