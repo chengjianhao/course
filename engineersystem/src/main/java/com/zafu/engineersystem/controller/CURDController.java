@@ -3,8 +3,10 @@ package com.zafu.engineersystem.controller;
 
 import com.zafu.engineersystem.pojo.Engineer;
 import com.zafu.engineersystem.pojo.Record;
+import com.zafu.engineersystem.pojo.SalaryInfo;
 import com.zafu.engineersystem.service.EngService;
 import com.zafu.engineersystem.service.RecordService;
+import com.zafu.engineersystem.service.SalaryInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,8 @@ public class CURDController {
     private EngService engService;
     @Autowired
     private RecordService recordService;
+    @Autowired
+    private SalaryInfoService salaryInfoService;
 
 
     //根据名字查询工程师信息
@@ -49,7 +53,7 @@ public class CURDController {
     public String showAllEngSalary(Model model){
         List<Engineer> allEng = engService.getAllEng();
         model.addAttribute("eng",allEng);
-        return "showEng";
+        return "showEngSalary";
     }
 
     //新增工程师信息
@@ -97,8 +101,33 @@ public class CURDController {
     }
 
     @RequestMapping("/deleteEng/{engineerId}")
-    public String deleteEng(@PathVariable("engineerId") int engineerId){
+    public String deleteEng(@PathVariable("engineerId") int engineerId, HttpSession session){
         engService.deleteEngById(engineerId);
+      //  Engineer engineer = engService.getEngById(engineerId);
+
+        //操作记录添加
+     //   Record record = new Record();
+     //   String userInfo = session.getAttribute("userInfo").toString();
+     //   record.setUsername(userInfo);
+      //  record.setOperation("删除用户"+engineer.getEngineerName());
+      //  record.setTime(new Timestamp((System.currentTimeMillis())));
+      //  recordService.addRecord(record);
+
+        return "redirect:/showAllEng";
+    }
+
+    //跳转到计算工程师薪水信息页面
+    @RequestMapping("/toUpdateSalary/{engineerId}")
+    public String toUpdateSalary(@PathVariable("engineerId")int engineerId,Model model){
+        SalaryInfo salaryInfo = salaryInfoService.getEngSalaryById(engineerId);
+        model.addAttribute("salaryInfo",salaryInfo);
+        return "updateSalary";
+    }
+
+    @RequestMapping("/updateSalary")
+    public String updateSalary(SalaryInfo salaryInfo, Model model){
+        salaryInfoService.updateSalary(salaryInfo);
+        salaryInfoService.caculatSalary(salaryInfo);
         return "redirect:/showAllEng";
     }
 }

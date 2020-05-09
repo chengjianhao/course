@@ -15,4 +15,5 @@ public class SalaryInfo {
     private double engineerKpi;
     private int engineerSeniority;
     private double engineerInsurance;
+    private double engineerFinalsalary;
 }

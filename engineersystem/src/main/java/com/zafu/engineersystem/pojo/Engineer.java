@@ -20,5 +20,6 @@ public class Engineer {
     private int engineerSeniority;
     private double engineerSalary;
     private String engineerEducation;
+    private double engineerFinalsalary;
 
 }

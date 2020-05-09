@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <!-- saved from url=(0052)http://getbootstrap.com/docs/4.0/examples/dashboard/ -->
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <title>欢迎使用工程师资料管理系统</title>
-        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    </head>
+    <title>欢迎使用工程师资料管理系统</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
 <body><a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
-                <h3>工程师信息管理</h3>
+                <h3>薪水管理</h3>
             </div>
         </div>
 
@@ -24,25 +24,19 @@
                 <!--采用id作为标签索引，避免重名 -->
                 <td th:case="0">
                     <div class="col-md-4 column" >
+                        <a class="btn btn-primary" th:href="@{/showAllEng}">返回</a>
                         <a class="btn btn-primary" th:href="@{/showAllUser}">用户管理</a>
                         <a class="btn btn-primary" th:href="@{/toAddEng}">新增工程师</a>
-                        <a class="btn btn-primary" th:href="@{/showAllEngSalary}">查看所有人薪水</a>
                     </div>
                 </td>
                 <td th:case="1">
                     <div class="col-md-4 column" >
+                        <a class="btn btn-primary" th:href="@{/showAllEng}">返回</a>
                         <a class="btn btn-primary" th:href="@{/toAddEng}">新增工程师</a>
-                        <a class="btn btn-primary" th:href="@{/showAllEngSalary}">查看所有人薪水</a>
                     </div>
                 </td>
             </div>
-            <div class="col-md-4 column" ></div>
-            <div class="col-md-4 column" >
-                <form th:action="@{/queryEng}" method="post" style="float: right" class="form-inline">
-                    <input type="text" name="engineerName" class="form-control" placeholder="请输入要查询的工程师姓名">
-                    <input type="submit" value="查询" class="btn btn-primary">
-                </form>
-            </div>
+            
         </div>
     </div>
 
@@ -61,7 +55,7 @@
                     <th>工龄</th>
                     <th>基本薪水</th>
                     <th>学历</th>
-                    <th>操作</th>
+                    <th>最终月薪水</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -79,12 +73,7 @@
                     <td th:text="${engs.getEngineerSeniority()}"></td>
                     <td th:text="${engs.getEngineerSalary()}"></td>
                     <td th:text="${engs.getEngineerEducation()}"></td>
-                        <!--采用id作为标签索引，避免重名 -->
-                    <td>
-                            <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a> |
-                            <a class="btn btn-sm btn-danger" th:href="@{/deleteEng/}+${engs.getEngineerId()}">删除</a> |
-                            <a class="btn btn-sm btn-info" th:href="@{/toUpdateSalary/}+${engs.getEngineerId()}">修改薪水信息</a>
-                    </td>
+                    <td th:text="${engs.getEngineerFinalsalary()}"></td>
                 </tr>
                 </tbody>
             </table>

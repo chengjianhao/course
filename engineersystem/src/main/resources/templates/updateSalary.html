@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="page-header">
+                <h3>修改工程师薪水信息</h3>
+            </div>
+        </div>
+    </div>
+
+    <form th:action="@{/updateSalary}" method="post">
+        <input type="hidden" name="engineerId" th:value="${salaryInfo.getEngineerId()}">
+        <div class="form-group">
+            <label>姓名</label>
+            <input th:value="${salaryInfo.getEngineerName()}" type="text" name="engineerName" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>基本薪水</label>
+            <input th:value="${salaryInfo.getEngineerSalary()}" type="text" name="engineerSalary" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>月有效工作日天数</label>
+            <input th:value="${salaryInfo.getEngineerWorkday()}" type="text" name="engineerWorkday" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>月效益</label>
+            <input th:value="${salaryInfo.getEngineerKpi()}" type="text" name="engineerKpi" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>工作年限</label>
+            <input th:value="${salaryInfo.getEngineerSeniority()}" type="text" name="engineerSeniority" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label>月保险金</label>
+            <input th:value="${salaryInfo.getEngineerInsurance()}" type="number" name="engineerInsurance" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">确定修改</button>
+    </form>
+</div>
+</body>
+</html>

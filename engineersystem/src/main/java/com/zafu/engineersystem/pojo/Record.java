@@ -14,5 +14,4 @@ public class Record {
     private String username;
     private String operation;
     private Timestamp time;
-
 }

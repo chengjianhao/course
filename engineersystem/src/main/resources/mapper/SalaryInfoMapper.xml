@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zafu.engineersystem.mapper.SalaryInfoMapper">
+    <select id="getAllEngSalary" resultType="SalaryInfo">
+        select * from salary
+    </select>
+
+    <update id="updateSalary" parameterType="SalaryInfo">
+        update salary set engineer_name=#{engineerName},engineer_salary=#{engineerSalary},engineer_workday=#{engineerWorkday},engineer_kpi=#{engineerKpi},engineer_seniority=#{engineerSeniority},engineer_insurance=#{engineerInsurance} where engineer_id=#{engineerId}
+    </update>
+
+    <update id="caculatSalary" parameterType="SalaryInfo">
+        update salary set engineer_finalsalary=(engineer_salary + 10 * engineer_workday + engineer_kpi * engineer_seniority / 100 ) * 0.9 - engineer_insurance where engineer_id=#{engineerId}
+    </update>
+
+    <select id="getEngSalaryById" parameterType="int" resultType="SalaryInfo">
+        select * from salary where engineer_id=#{engineerSalaryId};
+    </select>
+
+</mapper>
