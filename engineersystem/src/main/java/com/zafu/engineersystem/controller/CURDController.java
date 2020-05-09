@@ -2,19 +2,26 @@ package com.zafu.engineersystem.controller;
 
 
 import com.zafu.engineersystem.pojo.Engineer;
+import com.zafu.engineersystem.pojo.Record;
 import com.zafu.engineersystem.service.EngService;
+import com.zafu.engineersystem.service.RecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
 import java.util.List;
 
 @Controller
 public class CURDController {
     @Autowired
     private EngService engService;
+    @Autowired
+    private RecordService recordService;
+
 
     //根据名字查询工程师信息
     @RequestMapping("/queryEng")
@@ -52,8 +59,17 @@ public class CURDController {
     }
 
     @RequestMapping("/addEng")
-    public String addEng(Engineer engineer){
+    public String addEng(Engineer engineer, HttpSession session){
         engService.addEng(engineer);
+
+        //操作记录添加
+        Record record = new Record();
+        String userInfo = session.getAttribute("userInfo").toString();
+        record.setUsername(userInfo);
+        record.setOperation("添加用户"+engineer.getEngineerName());
+        record.setTime(new Timestamp((System.currentTimeMillis())));
+        recordService.addRecord(record);
+
         return "redirect:/showAllEng";
     }
 
@@ -66,8 +82,17 @@ public class CURDController {
     }
 
     @RequestMapping("/updateEng")
-    public String updateEng(Engineer engineer, Model model){
+    public String updateEng(Engineer engineer, Model model,HttpSession session){
         engService.updateEng(engineer);
+
+        //操作记录添加
+        Record record = new Record();
+        String userInfo = session.getAttribute("userInfo").toString();
+        record.setUsername(userInfo);
+        record.setOperation("修改用户"+engineer.getEngineerName());
+        record.setTime(new Timestamp((System.currentTimeMillis())));
+        recordService.addRecord(record);
+
         return "redirect:/showAllEng";
     }
 
