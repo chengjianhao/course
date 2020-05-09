@@ -8,7 +8,10 @@
     </select>
 
     <insert id="addUser" parameterType="User">
-        insert into user1 (username,password,identity) values(#{username},#{password},#{identity})
+       insert into user1(username,password,identity)
+            select #{username},#{password},#{identity}
+                from dual WHERE not exists (select * from user1
+                    where username = #{username})
     </insert>
 
     <delete id="deleteUser" parameterType="String">

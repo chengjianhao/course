@@ -8,7 +8,10 @@
     </select>
 
     <insert id="addEng" parameterType="Engineer">
-        insert into engineer (engineer_name,engineer_sex,engineer_address,engineer_telephone,engineer_birthday,engineer_native,engineer_seniority,engineer_salary,engineer_education) values(#{engineerName},#{engineerSex},#{engineerAddress},#{engineerTelephone},#{engineerBirthday},#{engineerNative},#{engineerSeniority},#{engineerSalary},#{engineerEducation})
+        insert into engineer (engineer_name,engineer_sex,engineer_address,engineer_telephone,engineer_birthday,engineer_native,engineer_seniority,engineer_salary,engineer_education)
+            select #{engineerName},#{engineerSex},#{engineerAddress},#{engineerTelephone},#{engineerBirthday},#{engineerNative},#{engineerSeniority},#{engineerSalary},#{engineerEducation}
+                from dual WHERE not exists (select * from engineer
+                    where engineer_name = #{engineerName})
     </insert>
 
     <delete id="deleteEng" parameterType="String">
