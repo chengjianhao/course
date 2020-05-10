@@ -1,6 +1,5 @@
 package com.zafu.engineersystem.controller;
 
-
 import com.zafu.engineersystem.pojo.Engineer;
 import com.zafu.engineersystem.pojo.Record;
 import com.zafu.engineersystem.pojo.SalaryInfo;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.sql.Timestamp;
 import java.util.List;
+import java.io.PrintStream;
 
 @Controller
 public class CURDController {
@@ -64,16 +64,14 @@ public class CURDController {
 
     @RequestMapping("/addEng")
     public String addEng(Engineer engineer, HttpSession session){
-        engService.addEng(engineer);
-
-        //操作记录添加
-        Record record = new Record();
-        String userInfo = session.getAttribute("userInfo").toString();
-        record.setUsername(userInfo);
-        record.setOperation("添加用户"+engineer.getEngineerName());
-        record.setTime(new Timestamp((System.currentTimeMillis())));
-        recordService.addRecord(record);
-
+        if(engService.addEng(engineer) == 1){
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("添加用户"+engineer.getEngineerName());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+        }
         return "redirect:/showAllEng";
     }
 
@@ -103,16 +101,16 @@ public class CURDController {
     @RequestMapping("/deleteEng/{engineerId}")
     public String deleteEng(@PathVariable("engineerId") int engineerId, HttpSession session){
         engService.deleteEngById(engineerId);
-      //  Engineer engineer = engService.getEngById(engineerId);
+     //   Engineer engineer = engService.getEngById(engineerId);
 
         //操作记录添加
-     //   Record record = new Record();
-     //   String userInfo = session.getAttribute("userInfo").toString();
-     //   record.setUsername(userInfo);
-      //  record.setOperation("删除用户"+engineer.getEngineerName());
-      //  record.setTime(new Timestamp((System.currentTimeMillis())));
-      //  recordService.addRecord(record);
-
+    /*    Record record = new Record();
+        String userInfo = session.getAttribute("userInfo").toString();
+        record.setUsername(userInfo);
+        record.setOperation("删除用户"+engineer.getEngineerName());
+        record.setTime(new Timestamp((System.currentTimeMillis())));
+        recordService.addRecord(record);
+*/
         return "redirect:/showAllEng";
     }
 

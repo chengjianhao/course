@@ -73,7 +73,10 @@
                     <td th:text="${engs.getEngineerSeniority()}"></td>
                     <td th:text="${engs.getEngineerSalary()}"></td>
                     <td th:text="${engs.getEngineerEducation()}"></td>
-                    <td th:text="${engs.getEngineerFinalsalary()}"></td>
+                    <div th:switch="${engs.getEngineerFinalsalary()}">
+                        <td th:case="0">薪水信息未完善，请先完善</td>
+                        <td th:case="*" th:text="${engs.getEngineerFinalsalary()}"></td>
+                    </div>
                 </tr>
                 </tbody>
             </table>
