@@ -9,13 +9,16 @@ import com.zafu.engineersystem.service.SalaryInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
-import java.io.PrintStream;
 
 @Controller
 public class CURDController {
@@ -63,16 +66,30 @@ public class CURDController {
     }
 
     @RequestMapping("/addEng")
-    public String addEng(Engineer engineer, HttpSession session){
-        if(engService.addEng(engineer) == 1){
-            Record record = new Record();
-            String userInfo = session.getAttribute("userInfo").toString();
-            record.setUsername(userInfo);
-            record.setOperation("添加用户"+engineer.getEngineerName());
-            record.setTime(new Timestamp((System.currentTimeMillis())));
-            recordService.addRecord(record);
+    public String addEng(@Valid Engineer engineer, BindingResult bindingResult, HttpSession session, Model model){
+        if(bindingResult.hasErrors()){
+            List<FieldError> list = bindingResult.getFieldErrors();
+            model.addAttribute("error",list);
+            return "addEng";
         }
-        return "redirect:/showAllEng";
+        else{
+            if(engService.addEng(engineer) == 1){
+                Record record = new Record();
+                String userInfo = session.getAttribute("userInfo").toString();
+                record.setUsername(userInfo);
+                record.setOperation("添加工程师 "+engineer.getEngineerName());
+                record.setTime(new Timestamp((System.currentTimeMillis())));
+                recordService.addRecord(record);
+            }
+            else{
+                List<FieldError> list = new ArrayList<FieldError>(1);
+                FieldError fielderror = new FieldError("addError","addError","用户名："+engineer.getEngineerName()+" 已经被添加");
+                list.add(fielderror);
+                model.addAttribute("error",list);
+                return "addEng";
+            }
+            return "redirect:/showAllEng";
+        }
     }
 
     //跳转到修改工程师信息页面
@@ -85,32 +102,31 @@ public class CURDController {
 
     @RequestMapping("/updateEng")
     public String updateEng(Engineer engineer, Model model,HttpSession session){
-        engService.updateEng(engineer);
-
-        //操作记录添加
-        Record record = new Record();
-        String userInfo = session.getAttribute("userInfo").toString();
-        record.setUsername(userInfo);
-        record.setOperation("修改用户"+engineer.getEngineerName());
-        record.setTime(new Timestamp((System.currentTimeMillis())));
-        recordService.addRecord(record);
-
+        if(engService.updateEng(engineer)==1){
+            //操作记录添加
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("修改工程师 "+engineer.getEngineerName());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+        }
         return "redirect:/showAllEng";
     }
 
     @RequestMapping("/deleteEng/{engineerId}")
     public String deleteEng(@PathVariable("engineerId") int engineerId, HttpSession session){
-        engService.deleteEngById(engineerId);
-     //   Engineer engineer = engService.getEngById(engineerId);
+        Engineer engineer = engService.getEngById(engineerId);
 
-        //操作记录添加
-    /*    Record record = new Record();
-        String userInfo = session.getAttribute("userInfo").toString();
-        record.setUsername(userInfo);
-        record.setOperation("删除用户"+engineer.getEngineerName());
-        record.setTime(new Timestamp((System.currentTimeMillis())));
-        recordService.addRecord(record);
-*/
+        if(engService.deleteEngById(engineerId)==1){
+            //操作记录添加
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("删除工程师 "+engineer.getEngineerName());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+        }
         return "redirect:/showAllEng";
     }
 

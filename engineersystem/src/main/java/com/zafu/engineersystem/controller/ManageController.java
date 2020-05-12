@@ -1,19 +1,28 @@
 package com.zafu.engineersystem.controller;
 
+import com.zafu.engineersystem.pojo.Record;
 import com.zafu.engineersystem.pojo.User;
+import com.zafu.engineersystem.service.RecordService;
 import com.zafu.engineersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class ManageController {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RecordService recordService;
 
     //根据名字查询用户信息
     @RequestMapping("/queryUser")
@@ -43,8 +52,22 @@ public class ManageController {
     }
 
     @RequestMapping("/addUser")
-    public String addUser(User user){
-        userService.addUser(user);
+    public String addUser(User user, HttpSession session, Model model){
+        if(userService.addUser(user) == 1){
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("添加用户 "+user.getUsername());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+        }
+        else{
+            List<FieldError> list = new ArrayList<FieldError>(1);
+            FieldError fielderror = new FieldError("addError","addError","用户名："+user.getUsername()+" 已经被添加");
+            list.add(fielderror);
+            model.addAttribute("error",list);
+            return "addUser";
+        }
         return "redirect:/showAllUser";
     }
 
@@ -57,14 +80,31 @@ public class ManageController {
     }
 
     @RequestMapping("/updateUser")
-    public String updateUser(User user, Model model){
-        userService.updateUser(user);
+    public String updateUser(User user, HttpSession session, Model model){
+        if(userService.updateUser(user)==1){
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("修改用户 "+user.getUsername());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+        }
         return "redirect:/showAllUser";
     }
 
     @RequestMapping("/deleteUser/{id}")
-    public String deleteUser(@PathVariable("id") int id){
-        userService.deleteUserById(id);
+    public String deleteUser(@PathVariable("id") int id, HttpSession session){
+        User user = userService.getUserById(id);
+
+        if(userService.deleteUserById(id)==1){
+            Record record = new Record();
+            String userInfo = session.getAttribute("userInfo").toString();
+            record.setUsername(userInfo);
+            record.setOperation("删除用户 "+user.getUsername());
+            record.setTime(new Timestamp((System.currentTimeMillis())));
+            recordService.addRecord(record);
+            }
         return "redirect:/showAllUser";
     }
+
 }

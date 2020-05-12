@@ -16,6 +16,8 @@
         </div>
     </div>
 
+    <label class="alert alert-danger" role="alert"th:each="errors:${error}" th:text="${errors.getDefaultMessage()}"></label>
+
     <form th:action="@{/addUser}" method="post">
         <div class="form-group">
             <label>用户名</label>

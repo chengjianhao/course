@@ -15,6 +15,7 @@
             </div>
         </div>
     </div>
+    <label class="alert alert-danger" role="alert"th:each="errors:${error}" th:text="${errors.getDefaultMessage()}"></label>
 
     <form th:action="@{/addEng}" method="post">
         <div class="form-group">
@@ -58,7 +59,23 @@
         </div>
         <div class="form-group">
             <label>学历</label>
-            <input type="text" name="engineerEducation" class="form-control" required>
+            <div>
+                <label class="radio-inline">
+                    <input type="radio" name="engineerEducation" value="0">高中
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="engineerEducation" value="1">学士
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="engineerEducation" value="2">硕士
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="engineerEducation" value="3">博士
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="engineerEducation" value="4">其他
+                </label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">确定添加</button>
     </form>

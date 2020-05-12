@@ -31,7 +31,7 @@ CREATE TABLE `engineer`  (
   `engineer_native` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `engineer_seniority` int(2) NULL DEFAULT NULL,
   `engineer_salary` decimal(10, 2) NULL DEFAULT NULL,
-  `engineer_education` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `engineer_education` int(1) NULL DEFAULT NULL,
   `engineer_finalsalary` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`engineer_id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
@@ -39,10 +39,10 @@ CREATE TABLE `engineer`  (
 -- ----------------------------
 -- Records of engineer
 -- ----------------------------
-INSERT INTO `engineer` VALUES (15, '张三', 1, '浙江', 'xxxxxxxxxx', '2020-05-14', '台州', 2, 2345.00, '本科', 2110.50);
-INSERT INTO `engineer` VALUES (16, '李四', 1, '浙江台州', '123123', '2020-05-21', '浙江', 3, 3246.00, '本科', 2921.40);
-INSERT INTO `engineer` VALUES (17, '王五', 1, '浙江', '123123123', '2020-05-13', '台州', 1, 1268.00, '本科', 1386.70);
-INSERT INTO `engineer` VALUES (18, '小明', 1, '浙江', 'xxxxxxxxxx', '2020-05-22', '台州', 3, 2367.00, '本科', 2130.30);
+INSERT INTO `engineer` VALUES (15, '张三', 1, '浙江', 'xxxxxxxxxx', '2020-05-14', '台州', 2, 2345.00, '2', 2110.50);
+INSERT INTO `engineer` VALUES (16, '李四', 1, '浙江台州', '123123', '2020-05-21', '浙江', 3, 3246.00, '2', 2921.40);
+INSERT INTO `engineer` VALUES (17, '王五', 1, '浙江', '123123123', '2020-05-13', '台州', 1, 1268.00, '2', 1386.70);
+INSERT INTO `engineer` VALUES (18, '小明', 1, '浙江', 'xxxxxxxxxx', '2020-05-22', '台州', 3, 2367.00, '2', 2130.30);
 INSERT INTO `engineer` VALUES (19, '123', 1, '浙江', '123123', '2020-05-14', '台州', 2, 40.00, '3', 36.00);
 
 -- ----------------------------

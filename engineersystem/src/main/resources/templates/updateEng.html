@@ -59,7 +59,23 @@
         </div>
         <div class="form-group">
             <label>学历</label>
-            <input th:value="${eng.getEngineerEducation()}" type="text" name="engineerEducation" class="form-control" required>
+            <div>
+                <label class="radio-inline">
+                    <input th:checked="${eng.getEngineerSex()==0}" type="radio" name="engineerEducation" value="0">高中
+                </label>
+                <label class="radio-inline">
+                    <input th:checked="${eng.getEngineerSex()==1}" type="radio" name="engineerEducation" value="1">学士
+                </label>
+                <label class="radio-inline">
+                    <input th:checked="${eng.getEngineerSex()==2}" type="radio" name="engineerEducation" value="2">硕士
+                </label>
+                <label class="radio-inline">
+                    <input th:checked="${eng.getEngineerSex()==3}" type="radio" name="engineerEducation" value="3">博士
+                </label>
+                <label class="radio-inline">
+                    <input th:checked="${eng.getEngineerSex()==4}" type="radio" name="engineerEducation" value="4">其他
+                </label>
+            </div>
         </div>
         <button type="submit" class="btn btn-primary">确定修改</button>
     </form>
