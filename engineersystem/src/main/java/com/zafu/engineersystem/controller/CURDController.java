@@ -44,6 +44,72 @@ public class CURDController {
         }
     }
 
+    //根据名字查询工程师信息删除
+    @RequestMapping("/queryEngbyNamedelete")
+    public String showEngineerbyNamedelete(String engineerName, Model model){
+        if(!engineerName.equals("")) {
+            Engineer eng = engService.getEngByName(engineerName);
+            model.addAttribute("eng", eng);
+            return "deleteEngbyName";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/deleteAllEngbyName";
+        }
+    }
+
+    //根据id查询工程师信息删除
+    @RequestMapping("/queryEngbyIddelete")
+    public String showEngineerbyIddelete(int engineerId, Model model){
+        if(engineerId!=0) {
+            Engineer eng = engService.getEngById(engineerId);
+            model.addAttribute("eng", eng);
+            return "deleteEngbyId";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/deleteAllEngbyId";
+        }
+    }
+
+    //根据名字查询工程师信息更新
+    @RequestMapping("/queryEngbyNameUpdate")
+    public String showEngineerbyNameUpdate(String engineerName, Model model){
+        if(!engineerName.equals("")) {
+            Engineer eng = engService.getEngByName(engineerName);
+            model.addAttribute("eng", eng);
+            return "updateEngbyName";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/updateAllEngbyName";
+        }
+    }
+
+    //根据id查询工程师信息更新
+    @RequestMapping("/queryEngbyIdUpdate")
+    public String showEngineerbyIdUpdate(int engineerId, Model model){
+        if(engineerId!=0) {
+            Engineer eng = engService.getEngById(engineerId);
+            model.addAttribute("eng", eng);
+            return "updateEngbyId";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/updateAllEngbyId";
+        }
+    }
+
+    @RequestMapping("/updateAllEngbyName")
+    public String updateAllEngbyName(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "updateEngbyName";
+    }
+
+    @RequestMapping("/updateAllEngbyId")
+    public String updateAllEngbyId(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "updateEngbyId";
+    }
+
     //根据ID查询工程师信息
     @RequestMapping("/queryEngById")
     public String showEngineer2(int engineerId, Model model){
@@ -57,12 +123,47 @@ public class CURDController {
         }
     }
 
+    //根据姓名查工程师信息
+    @RequestMapping("/toqueryEngbyName")
+    public String toqueryEngbyName(){
+        return "queryEngbyName";
+    }
+
+    //根据ID查工程师信息
+    @RequestMapping("/toqueryEngbyId")
+    public String toqueryEngbyId(){
+        return "queryEngbyId";
+    }
+
+
     //查询所有工程师信息
     @RequestMapping("/showAllEng")
     public String showAllEng(Model model){
         List<Engineer> allEng = engService.getAllEng();
         model.addAttribute("eng",allEng);
         return "showEng";
+    }
+
+    @RequestMapping("/deleteAllEngbyName")
+    public String deleteAllEngbyName(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "deleteEngbyName";
+    }
+
+    @RequestMapping("/deleteAllEngbyId")
+    public String deleteAllEngbyId(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "deleteEngbyId";
+    }
+
+    //查询所有工程师信息(不带操作)
+    @RequestMapping("/showAllEngInfo")
+    public String showAllEngInfo(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "showEngInfo";
     }
     /*
     @RequestMapping("/showAllEngOrderByIdAsc")
@@ -129,6 +230,18 @@ public class CURDController {
         }
     }
 
+    //根据姓名更新工程师信息
+    @RequestMapping("/toupdateEngbyName")
+    public String toupdateEngbyName(){
+        return "updateEngbyName";
+    }
+
+    //根据ID更新工程师信息
+    @RequestMapping("/toupdateEngbyId")
+    public String toupdateEngbyId(){
+        return "updateEngbyId";
+    }
+
     //跳转到修改工程师信息页面
     @RequestMapping("/toUpdateEng/{engineerId}")
     public String toUpdateEng(@PathVariable("engineerId")int engineerId,Model model){
@@ -167,6 +280,19 @@ public class CURDController {
             return "redirect:/showAllEng";
         }
     }
+
+    //根据姓名删除工程师信息
+    @RequestMapping("/todeleteEngbyName")
+    public String todeleteEngbyName(){
+        return "deleteEngbyName";
+    }
+
+    //根据ID删除工程师信息
+    @RequestMapping("/todeleteEngbyId")
+    public String todeleteEngbyId(){
+        return "deleteEngbyId";
+    }
+
     @RequestMapping("/deleteEng/{engineerId}")
     public String deleteEng(@PathVariable("engineerId") int engineerId, HttpSession session){
         Engineer engineer = engService.getEngById(engineerId);
@@ -206,8 +332,16 @@ public class CURDController {
     }
 
     @RequestMapping("/deleteAllEng")
-    public String deleteAllEng(){
+    public String deleteAllEng(HttpSession session){
         engService.deleteAllEng();
+
+        //操作记录添加
+        Record record = new Record();
+        String userInfo = session.getAttribute("userInfo").toString();
+        record.setUsername(userInfo);
+        record.setOperation("删除所有工程师信息");
+        record.setTime(new Timestamp((System.currentTimeMillis())));
+        recordService.addRecord(record);
         return "redirect:/showAllEng";
     }
 }
