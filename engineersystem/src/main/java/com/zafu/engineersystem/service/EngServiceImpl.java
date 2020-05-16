@@ -18,6 +18,21 @@ public class EngServiceImpl implements EngService{
     }
 
     @Override
+    public List<Engineer> getAllEngOrderByIdAsc() {
+        return engMapper.getAllEngOrderByIdAsc();
+    }
+
+    @Override
+    public List<Engineer> getAllEngOrderByNameAsc() {
+        return engMapper.getAllEngOrderByNameAsc();
+    }
+
+    @Override
+    public List<Engineer> getAllEngOrderBySeniorityDesc() {
+        return engMapper.getAllEngOrderBySeniorityDesc();
+    }
+
+    @Override
     public int addEng(Engineer engineer) {
         return engMapper.addEng(engineer);
     }
@@ -45,5 +60,10 @@ public class EngServiceImpl implements EngService{
     @Override
     public Engineer getEngById(int engineerId) {
         return engMapper.getEngById(engineerId);
+    }
+
+    @Override
+    public int getEngCountByName(String engineerName) {
+        return engMapper.getEngCountByName(engineerName);
     }
 }

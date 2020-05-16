@@ -1,7 +1,6 @@
 package com.zafu.engineersystem.service;
 
 import com.zafu.engineersystem.mapper.UserMapper;
-import com.zafu.engineersystem.pojo.Engineer;
 import com.zafu.engineersystem.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +46,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserById(int id) {
         return userMapper.getUserById(id);
+    }
+
+    @Override
+    public int getUserCountByName(String username) {
+        return userMapper.getUserCountByName(username);
     }
 }

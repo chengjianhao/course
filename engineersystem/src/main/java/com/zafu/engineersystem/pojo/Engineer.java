@@ -26,10 +26,9 @@ public class Engineer {
     @Length(max=11, message = "手机号码不能超过11位")
     private String engineerTelephone;
 
-    //@Past(message = "日期填写错误")
     private Date engineerBirthday;
 
-    @Length(max=10, message = "超出填写长度")
+    @Length(max=10, message = "籍贯超出填写长度")
     private String engineerNative;
 
     @Min(value = 0, message = "工龄填写有误，不能小于0")

@@ -7,11 +7,14 @@ import com.zafu.engineersystem.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,16 +83,34 @@ public class ManageController {
     }
 
     @RequestMapping("/updateUser")
-    public String updateUser(User user, HttpSession session, Model model){
-        if(userService.updateUser(user)==1){
-            Record record = new Record();
-            String userInfo = session.getAttribute("userInfo").toString();
-            record.setUsername(userInfo);
-            record.setOperation("修改用户 "+user.getUsername());
-            record.setTime(new Timestamp((System.currentTimeMillis())));
-            recordService.addRecord(record);
+    public String updateUser(@Valid User user, BindingResult bindingResult, HttpSession session, RedirectAttributes model){
+        if(bindingResult.hasErrors()){
+            List<FieldError> list = bindingResult.getFieldErrors();
+            model.addFlashAttribute("error",list);
+            return "updateUser";
         }
-        return "redirect:/showAllUser";
+        else{
+            //因为修改发生重名情况
+            if(userService.getUserById(user.getId()).getUsername() != user.getUsername()
+                    && (userService.getUserCountByName(user.getUsername())) ==1){
+                List<FieldError> list = new ArrayList<FieldError>(1);
+                FieldError fielderror = new FieldError("updateError","updateError","用户名："+user.getUsername()+" 已经被添加");
+                list.add(fielderror);
+                model.addFlashAttribute("error",list);
+                String id = String.valueOf(user.getId());
+                return "redirect:/toUpdateUser/" + id;
+            }else{
+                if((userService.updateUser(user) == 1)){
+                    Record record = new Record();
+                    String userInfo = session.getAttribute("userInfo").toString();
+                    record.setUsername(userInfo);
+                    record.setOperation("修改用户 "+user.getUsername());
+                    record.setTime(new Timestamp((System.currentTimeMillis())));
+                    recordService.addRecord(record);
+                }
+            }
+            return "redirect:/showAllUser";
+        }
     }
 
     @RequestMapping("/deleteUser/{id}")

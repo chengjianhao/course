@@ -104,10 +104,10 @@ INSERT INTO `salary` VALUES (18, '小明', 2367.00, NULL, NULL, 3, NULL, 2130.30
 INSERT INTO `salary` VALUES (19, '123', 40.00, NULL, NULL, 2, NULL, 36.00);
 
 -- ----------------------------
--- Table structure for user1
+-- Table structure for user
 -- ----------------------------
-DROP TABLE IF EXISTS `user1`;
-CREATE TABLE `user1`  (
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
@@ -116,14 +116,14 @@ CREATE TABLE `user1`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of user1
+-- Records of user
 -- ----------------------------
-INSERT INTO `user1` VALUES (1, 'root', '123456', 0);
-INSERT INTO `user1` VALUES (3, '潘歆韵', '123456', 1);
-INSERT INTO `user1` VALUES (4, '程建皓', '123456', 1);
-INSERT INTO `user1` VALUES (5, '李娜', '123456', 1);
-INSERT INTO `user1` VALUES (6, '左心如', '123456', 1);
-INSERT INTO `user1` VALUES (8, '翟思明', '123456', 1);
+INSERT INTO `user` VALUES (1, 'root', '123456', 0);
+INSERT INTO `user` VALUES (3, '潘歆韵', '123456', 1);
+INSERT INTO `user` VALUES (4, '程建皓', '123456', 1);
+INSERT INTO `user` VALUES (5, '李娜', '123456', 1);
+INSERT INTO `user` VALUES (6, '左心如', '123456', 1);
+INSERT INTO `user` VALUES (8, '翟思明', '123456', 1);
 
 -- ----------------------------
 -- Triggers structure for table engineer

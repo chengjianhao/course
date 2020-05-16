@@ -18,4 +18,6 @@ public interface UserService {
     User getUserById(int id);
 
     User getUserByName(String username);
+
+    int getUserCountByName(String username);
 }

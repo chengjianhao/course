@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -43,10 +44,46 @@ public class CURDController {
         }
     }
 
+    //根据ID查询工程师信息
+    @RequestMapping("/queryEngById")
+    public String showEngineer2(int engineerId, Model model){
+        if(engineerId!=0) {
+            Engineer eng = engService.getEngById(engineerId);
+            model.addAttribute("eng", eng);
+            return "showEng";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/showAllEng";
+        }
+    }
+
     //查询所有工程师信息
     @RequestMapping("/showAllEng")
     public String showAllEng(Model model){
         List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "showEng";
+    }
+    /*
+    @RequestMapping("/showAllEngOrderByIdAsc")
+    public String showAllEngOrderByIdAsc(Model model){
+        List<Engineer> allEng = engService.getAllEngOrderByIdAsc();
+        model.addAttribute("eng",allEng);
+        return "showEng";
+    }*/
+
+    //根据姓名增序排序
+    @RequestMapping("/showAllEngOrderByNameAsc")
+    public String showAllEngOrderByNameAsc(Model model){
+        List<Engineer> allEng = engService.getAllEngOrderByNameAsc();
+        model.addAttribute("eng",allEng);
+        return "showEng";
+    }
+
+    //根据工龄降序排序
+    @RequestMapping("/showAllEngOrderBySeniorityDesc")
+    public String showAllEngOrderBySeniorityDesc(Model model){
+        List<Engineer> allEng = engService.getAllEngOrderBySeniorityDesc();
         model.addAttribute("eng",allEng);
         return "showEng";
     }
@@ -101,19 +138,35 @@ public class CURDController {
     }
 
     @RequestMapping("/updateEng")
-    public String updateEng(Engineer engineer, Model model,HttpSession session){
-        if(engService.updateEng(engineer)==1){
-            //操作记录添加
-            Record record = new Record();
-            String userInfo = session.getAttribute("userInfo").toString();
-            record.setUsername(userInfo);
-            record.setOperation("修改工程师 "+engineer.getEngineerName());
-            record.setTime(new Timestamp((System.currentTimeMillis())));
-            recordService.addRecord(record);
+    public String updateEng(@Valid Engineer engineer, BindingResult bindingResult, RedirectAttributes model, HttpSession session){
+        if(bindingResult.hasErrors()){
+            List<FieldError> list = bindingResult.getFieldErrors();
+            model.addFlashAttribute("error",list);
+            return "updateEng";
         }
-        return "redirect:/showAllEng";
+        else{
+            //因为修改发生重名情况
+            if(engService.getEngById(engineer.getEngineerId()).getEngineerName() != engineer.getEngineerName()
+                && (engService.getEngCountByName(engineer.getEngineerName())) ==1){
+                List<FieldError> list = new ArrayList<FieldError>(1);
+                FieldError fielderror = new FieldError("updateError","updateError","用户名："+engineer.getEngineerName()+" 已经被添加");
+                list.add(fielderror);
+                model.addFlashAttribute("error",list);
+                String id = String.valueOf(engineer.getEngineerId());
+                return "redirect:/toUpdateEng/" + id;
+            }else{
+                if((engService.updateEng(engineer) == 1)){
+                    Record record = new Record();
+                    String userInfo = session.getAttribute("userInfo").toString();
+                    record.setUsername(userInfo);
+                    record.setOperation("修改工程师 "+engineer.getEngineerName());
+                    record.setTime(new Timestamp((System.currentTimeMillis())));
+                    recordService.addRecord(record);
+                }
+            }
+            return "redirect:/showAllEng";
+        }
     }
-
     @RequestMapping("/deleteEng/{engineerId}")
     public String deleteEng(@PathVariable("engineerId") int engineerId, HttpSession session){
         Engineer engineer = engService.getEngById(engineerId);
@@ -139,9 +192,16 @@ public class CURDController {
     }
 
     @RequestMapping("/updateSalary")
-    public String updateSalary(SalaryInfo salaryInfo, Model model){
-        salaryInfoService.updateSalary(salaryInfo);
-        salaryInfoService.caculatSalary(salaryInfo);
+    public String updateSalary(@Valid SalaryInfo salaryInfo, BindingResult bindingResult, RedirectAttributes model){
+        if(bindingResult.hasErrors()){
+            List<FieldError> list = bindingResult.getFieldErrors();
+            model.addFlashAttribute("error",list);
+            String id = String.valueOf(salaryInfo.getEngineerId());
+            return "redirect:/toUpdateSalary/" + id;
+        }else{
+            salaryInfoService.updateSalary(salaryInfo);
+            salaryInfoService.caculatSalary(salaryInfo);
+        }
         return "redirect:/showAllEng";
     }
 }

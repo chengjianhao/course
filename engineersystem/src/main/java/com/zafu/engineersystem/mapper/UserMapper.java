@@ -25,10 +25,13 @@ public interface UserMapper {
     //更新用户信息
     int updateUser(User user);
 
-    //根据用户姓名查询工程师信息
+    //根据用户姓名查询用户信息
     User getUserByName(String username);
 
-    //根据用户工号查询工程师信息
+    //根据用户工号查询用户信息
     User getUserById(int UserId);
+
+    //查询对应名字的用户数量
+    int getUserCountByName(String userName);
 
 }

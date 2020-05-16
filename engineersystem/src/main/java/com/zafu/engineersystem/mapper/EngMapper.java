@@ -13,6 +13,15 @@ public interface EngMapper {
     //查询所有工程师信息
     List<Engineer> getAllEng();
 
+    //排序所有工程师信息（编号升序）
+    List<Engineer> getAllEngOrderByIdAsc();
+
+    //排序所有工程师信息（姓名升序）
+    List<Engineer> getAllEngOrderByNameAsc();
+
+    //排序所有工程师信息（工龄降序）
+    List<Engineer> getAllEngOrderBySeniorityDesc();
+
     //新增工程师信息
     int addEng(Engineer engineer);
 
@@ -30,5 +39,8 @@ public interface EngMapper {
 
     //根据工程师工号查询工程师信息
     Engineer getEngById(int engineerId);
+
+    //查询对应名字的工程师数量
+    int getEngCountByName(String engineerName);
 
 }

@@ -16,6 +16,8 @@
         </div>
     </div>
 
+    <label class="alert alert-danger" role="alert"th:each="errors:${error}" th:text="${errors.getDefaultMessage()}"></label>
+
     <form th:action="@{/updateUser}" method="post">
         <input type="hidden" name="id" th:value="${user.getId()}">
         <div class="form-group">

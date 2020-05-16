@@ -7,6 +7,18 @@
         select * from engineer
     </select>
 
+    <select id="getAllEngOrderByIdAsc" resultType="Engineer">
+        select * from engineer order by engineer_id asc
+    </select>
+
+    <select id="getAllEngOrderByNameAsc" resultType="Engineer">
+        select * from engineer order by engineer_name asc
+    </select>
+
+    <select id="getAllEngOrderBySeniorityDesc" resultType="Engineer">
+        select * from engineer order by engineer_seniority desc
+    </select>
+
     <insert id="addEng" parameterType="Engineer">
         insert into engineer (engineer_name,engineer_sex,engineer_address,engineer_telephone,engineer_birthday,engineer_native,engineer_seniority,engineer_salary,engineer_education,engineer_finalsalary)
             select #{engineerName},#{engineerSex},#{engineerAddress},#{engineerTelephone},#{engineerBirthday},#{engineerNative},#{engineerSeniority},#{engineerSalary},#{engineerEducation},#{engineerSalary}*0.9
@@ -32,5 +44,9 @@
 
     <select id="getEngById" parameterType="int" resultType="Engineer">
         select * from engineer where engineer_id=#{engineerId};
+    </select>
+
+    <select id="getEngCountByName" resultType="int">
+        select count(*) from engineer where engineer_name=#{engineerName};
     </select>
 </mapper>

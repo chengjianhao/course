@@ -9,6 +9,7 @@
 
         <title>欢迎使用工程师资料管理系统</title>
         <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/jquery-3.3.1.min.js}">
     </head>
 <body><a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
 <div class="container">
@@ -19,11 +20,16 @@
             </div>
         </div>
 
+
+
         <div class="row">
             <div th:switch="${session.identity}">
                 <!--采用id作为标签索引，避免重名 -->
                 <td th:case="0">
                     <div class="col-md-4 column" >
+                        <a class="btn btn-info" th:name="order" th:value=1 th:href="@{/showAllEng}">按照编号升序</a>
+                        <a class="btn btn-info" th:name="order" th:value=2 th:href="@{/showAllEngOrderByNameAsc}">按照姓名升序</a>
+                        <a class="btn btn-info" th:name="order" th:value=3 th:href="@{/showAllEngOrderBySeniorityDesc}">按照工龄降序</a>
                         <a class="btn btn-primary" th:href="@{/showAllUser}">用户管理</a>
                         <a class="btn btn-primary" th:href="@{/toAddEng}">新增工程师</a>
                         <a class="btn btn-primary" th:href="@{/showAllEngSalary}">查看所有人薪水</a>
@@ -31,6 +37,9 @@
                 </td>
                 <td th:case="1">
                     <div class="col-md-4 column" >
+                        <a class="btn btn-info" th:name="order" th:value=1 th:href="@{/showAllEng}">按照编号升序</a>
+                        <a class="btn btn-info" th:name="order" th:value=2 th:href="@{/showAllEngOrderByNameAsc}">按照姓名升序</a>
+                        <a class="btn btn-info" th:name="order" th:value=3 th:href="@{/showAllEngOrderBySeniorityDesc}">按照工龄降序</a>
                         <a class="btn btn-primary" th:href="@{/toAddEng}">新增工程师</a>
                         <a class="btn btn-primary" th:href="@{/showAllEngSalary}">查看所有人薪水</a>
                     </div>
@@ -40,6 +49,10 @@
             <div class="col-md-4 column" >
                 <form th:action="@{/queryEng}" method="post" style="float: right" class="form-inline">
                     <input type="text" name="engineerName" class="form-control" placeholder="请输入要查询的工程师姓名">
+                    <input type="submit" value="查询" class="btn btn-primary">
+                </form>
+                <form th:action="@{/queryEngById}" method="post" style="float: right" class="form-inline">
+                    <input type="number" value="0" min="1" name="engineerId" class="form-control" placeholder="请输入要查询的工程师ID">
                     <input type="submit" value="查询" class="btn btn-primary">
                 </form>
             </div>
@@ -97,8 +110,6 @@
         </div>
     </div>
 </div>
-
-
 </body>
 
 </html>
