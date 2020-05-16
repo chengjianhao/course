@@ -24,15 +24,15 @@
         </div>
         <div class="form-group">
             <label>基本薪水</label>
-            <input th:value="${salaryInfo.getEngineerSalary()}" type="text" name="engineerSalary" class="form-control" required>
+            <input th:value="${salaryInfo.getEngineerSalary()}" type="number" step="0.01" name="engineerSalary" class="form-control" required>
         </div>
         <div class="form-group">
             <label>月有效工作日天数</label>
-            <input th:value="${salaryInfo.getEngineerWorkday()}" type="text" name="engineerWorkday" class="form-control" required>
+            <input th:value="${salaryInfo.getEngineerWorkday()}" type="number"  name="engineerWorkday" class="form-control" required>
         </div>
         <div class="form-group">
             <label>月效益</label>
-            <input th:value="${salaryInfo.getEngineerKpi()}" type="text" name="engineerKpi" class="form-control" required>
+            <input th:value="${salaryInfo.getEngineerKpi()}" type="number" step="0.01" name="engineerKpi" class="form-control" required>
         </div>
         <div class="form-group">
             <label>工作年限</label>
@@ -40,7 +40,7 @@
         </div>
         <div class="form-group">
             <label>月保险金</label>
-            <input th:value="${salaryInfo.getEngineerInsurance()}" type="number" name="engineerInsurance" class="form-control" required>
+            <input th:value="${salaryInfo.getEngineerInsurance()}" type="number" step="0.01" name="engineerInsurance" class="form-control" required>
         </div>
         <button type="submit" class="btn btn-primary">确定修改</button>
     </form>

@@ -18,6 +18,8 @@ public interface EngService {
 
     int deleteEng(String engineerName);
 
+    int deleteAllEng();
+
     int deleteEngById(int engineerId);
 
     int updateEng(Engineer engineer);

@@ -11,7 +11,9 @@
         <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/jquery-3.3.1.min.js}">
     </head>
-<body><a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
+<body>
+<a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
+<a th:href="@{/deleteAllEng}" style="float: right" id="deleteAll" class="btn btn-danger">删除所有工程师</a>
 <div class="container">
     <div class="row clearfix">
         <div class="col-md-12 column">
@@ -19,9 +21,6 @@
                 <h3>工程师信息管理</h3>
             </div>
         </div>
-
-
-
         <div class="row">
             <div th:switch="${session.identity}">
                 <!--采用id作为标签索引，避免重名 -->
@@ -110,6 +109,17 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    const deleteALl = document.getElementById('deleteAll');
+    deleteALl.onclick=function () {
+        const msg = "确定要删除所有工程师信息吗";
+        if(confirm(msg) == true){
+            return true;
+        }
+        return false;
+    }
+</script>
+
 </body>
 
 </html>

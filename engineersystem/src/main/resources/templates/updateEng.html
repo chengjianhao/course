@@ -40,11 +40,11 @@
         </div>
         <div class="form-group">
             <label>电话</label>
-            <input th:value="${eng.getEngineerTelephone()}" type="text" name="engineerTelephone" class="form-control" required>
+            <input th:value="${eng.getEngineerTelephone()}" type="text" name="engineerTelephone" id="textTel" class="form-control" required>
         </div>
         <div class="form-group">
             <label>生日</label>
-            <input th:value="${eng.getEngineerBirthday()}" type="date" name="engineerBirthday" class="form-control" required>
+            <input th:value="${eng.getEngineerBirthday()}" type="date" name="engineerBirthday" id="dateInput" class="form-control" required>
         </div>
         <div class="form-group">
             <label>籍贯</label>
@@ -55,8 +55,8 @@
             <input th:value="${eng.getEngineerSeniority()}" type="number" name="engineerSeniority" class="form-control" required>
         </div>
         <div class="form-group">
-            <label>工资</label>
-            <input th:value="${eng.getEngineerSalary()}" type="number" name="engineerSalary" class="form-control" required>
+            <label>基本工资</label>
+            <input th:value="${eng.getEngineerSalary()}" type="number" step="0.01" name="engineerSalary" class="form-control" required>
         </div>
         <div class="form-group">
             <label>学历</label>
@@ -81,5 +81,8 @@
         <button type="submit" class="btn btn-primary">确定修改</button>
     </form>
 </div>
+<script src="/js/filter.js">
+
+</script>
 </body>
 </html>

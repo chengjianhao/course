@@ -91,7 +91,7 @@ public class ManageController {
         }
         else{
             //因为修改发生重名情况
-            if(userService.getUserById(user.getId()).getUsername() != user.getUsername()
+            if(!userService.getUserById(user.getId()).getUsername().equals(user.getUsername())
                     && (userService.getUserCountByName(user.getUsername())) ==1){
                 List<FieldError> list = new ArrayList<FieldError>(1);
                 FieldError fielderror = new FieldError("updateError","updateError","用户名："+user.getUsername()+" 已经被添加");

@@ -146,7 +146,7 @@ public class CURDController {
         }
         else{
             //因为修改发生重名情况
-            if(engService.getEngById(engineer.getEngineerId()).getEngineerName() != engineer.getEngineerName()
+            if(!engService.getEngById(engineer.getEngineerId()).getEngineerName().equals(engineer.getEngineerName())
                 && (engService.getEngCountByName(engineer.getEngineerName())) ==1){
                 List<FieldError> list = new ArrayList<FieldError>(1);
                 FieldError fielderror = new FieldError("updateError","updateError","用户名："+engineer.getEngineerName()+" 已经被添加");
@@ -202,6 +202,12 @@ public class CURDController {
             salaryInfoService.updateSalary(salaryInfo);
             salaryInfoService.caculatSalary(salaryInfo);
         }
+        return "redirect:/showAllEng";
+    }
+
+    @RequestMapping("/deleteAllEng")
+    public String deleteAllEng(){
+        engService.deleteAllEng();
         return "redirect:/showAllEng";
     }
 }

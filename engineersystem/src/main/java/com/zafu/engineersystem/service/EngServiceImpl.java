@@ -43,6 +43,11 @@ public class EngServiceImpl implements EngService{
     }
 
     @Override
+    public int deleteAllEng() {
+        return engMapper.deleteAllEng();
+    }
+
+    @Override
     public int deleteEngById(int engineerId) {
         return engMapper.deleteEngById(engineerId);
     }

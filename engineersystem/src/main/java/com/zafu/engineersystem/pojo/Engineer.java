@@ -35,7 +35,7 @@ public class Engineer {
     @Max(value = 50, message = "工龄填写有误，不能大于50")
     private int engineerSeniority;
 
-    @Min(value = 1,message = "基本工资不能为0")
+    @Min(value = 0,message = "基本工资不能为0")
     private double engineerSalary;
 
     @NotNull(message = "学历不能为空")

@@ -12,7 +12,7 @@
     </select>
 
     <select id="getAllEngOrderByNameAsc" resultType="Engineer">
-        select * from engineer order by engineer_name asc
+        select * from engineer order by convert(engineer_name using gbk)  asc
     </select>
 
     <select id="getAllEngOrderBySeniorityDesc" resultType="Engineer">
@@ -28,6 +28,10 @@
 
     <delete id="deleteEng" parameterType="String">
         delete from engineer where engineer_name=#{engineerName}
+    </delete>
+
+    <delete id="deleteAllEng" >
+        delete from engineer
     </delete>
 
     <delete id="deleteEngById" parameterType="int">

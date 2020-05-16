@@ -28,6 +28,9 @@ public interface EngMapper {
     //根据姓名删除工程师
     int deleteEng(String engineerName);
 
+    //删除所有工程师信息
+    int deleteAllEng();
+
     //根据Id删除工程师
     int deleteEngById(int engineerId);
 
