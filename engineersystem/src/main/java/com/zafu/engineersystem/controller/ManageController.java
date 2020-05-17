@@ -1,5 +1,6 @@
 package com.zafu.engineersystem.controller;
 
+import com.zafu.engineersystem.pojo.Engineer;
 import com.zafu.engineersystem.pojo.Record;
 import com.zafu.engineersystem.pojo.User;
 import com.zafu.engineersystem.service.RecordService;
@@ -38,6 +39,34 @@ public class ManageController {
             //输入为空时显示所有工程师信息
             return "redirect:/showAllUser";
         }
+    }
+
+
+    //查询用户信息（不带操作）
+    @RequestMapping("/toqueryUserInfo")
+    public String toqueryUserInfo(){
+        return "showUserInfo";
+    }
+
+    //根据名字查询用户信息（不带操作）
+    @RequestMapping("/queryUserInfo")
+    public String showUserInfo(String username, Model model){
+        if(!username.equals("")) {
+            User user = userService.getUserByName(username);
+            model.addAttribute("user", user);
+            return "showUserInfo";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/showAllUserInfo";
+        }
+    }
+
+    //查询所有用户信息(不带操作)
+    @RequestMapping("/showAllUserInfo")
+    public String showAllUserInfo(Model model){
+        List<User> allUser = userService.getAllUser();
+        model.addAttribute("user",allUser);
+        return "showUserInfo";
     }
 
     //查询所有用户信息

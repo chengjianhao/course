@@ -59,14 +59,15 @@ public class CURDController {
 
     //根据id查询工程师信息删除
     @RequestMapping("/queryEngbyIddelete")
-    public String showEngineerbyIddelete(int engineerId, Model model){
-        if(engineerId!=0) {
-            Engineer eng = engService.getEngById(engineerId);
-            model.addAttribute("eng", eng);
-            return "deleteEngbyId";
-        }else{
+    public String showEngineerbyIddelete(String engineerId, Model model){
+        if(engineerId.equals("")) {
             //输入为空时显示所有工程师信息
             return "redirect:/deleteAllEngbyId";
+        }else{
+            int id = Integer.parseInt(engineerId);
+            Engineer eng = engService.getEngById(id);
+            model.addAttribute("eng", eng);
+            return "deleteEngbyId";
         }
     }
 
@@ -85,17 +86,19 @@ public class CURDController {
 
     //根据id查询工程师信息更新
     @RequestMapping("/queryEngbyIdUpdate")
-    public String showEngineerbyIdUpdate(int engineerId, Model model){
-        if(engineerId!=0) {
-            Engineer eng = engService.getEngById(engineerId);
-            model.addAttribute("eng", eng);
-            return "updateEngbyId";
-        }else{
+    public String showEngineerbyIdUpdate(String engineerId, Model model){
+        if(engineerId.equals("")) {
             //输入为空时显示所有工程师信息
             return "redirect:/updateAllEngbyId";
+        }else{
+            int id = Integer.parseInt(engineerId);
+            Engineer eng = engService.getEngById(id);
+            model.addAttribute("eng", eng);
+            return "updateEngbyId";
         }
     }
 
+    //根据姓名查找所有工程师信息更新
     @RequestMapping("/updateAllEngbyName")
     public String updateAllEngbyName(Model model){
         List<Engineer> allEng = engService.getAllEng();
@@ -103,6 +106,7 @@ public class CURDController {
         return "updateEngbyName";
     }
 
+    //根据id查找所有工程师信息更新
     @RequestMapping("/updateAllEngbyId")
     public String updateAllEngbyId(Model model){
         List<Engineer> allEng = engService.getAllEng();
@@ -112,15 +116,16 @@ public class CURDController {
 
     //根据ID查询工程师信息
     @RequestMapping("/queryEngById")
-    public String showEngineer2(int engineerId, Model model){
-        if(engineerId!=0) {
-            Engineer eng = engService.getEngById(engineerId);
-            model.addAttribute("eng", eng);
-            return "showEng";
+    public String showEngineer2(String engineerId, Model model){
+        if(engineerId.equals("")){
+            return "redirect:/showAllEngbyId";
         }else{
-            //输入为空时显示所有工程师信息
-            return "redirect:/showAllEng";
+            int id = Integer.parseInt(engineerId);
+            Engineer eng = engService.getEngById(id);
+            model.addAttribute("eng",eng);
+            return "showEngbyId";
         }
+
     }
 
     //根据姓名查工程师信息
@@ -144,6 +149,15 @@ public class CURDController {
         return "showEng";
     }
 
+    //查询所有工程师信息,通过id
+    @RequestMapping("/showAllEngbyId")
+    public String showAllEngbyId(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "showEngbyId";
+    }
+
+    //删除所有工程师信息,通过姓名
     @RequestMapping("/deleteAllEngbyName")
     public String deleteAllEngbyName(Model model){
         List<Engineer> allEng = engService.getAllEng();
@@ -151,6 +165,7 @@ public class CURDController {
         return "deleteEngbyName";
     }
 
+    //删除所有工程师信息,通过id
     @RequestMapping("/deleteAllEngbyId")
     public String deleteAllEngbyId(Model model){
         List<Engineer> allEng = engService.getAllEng();

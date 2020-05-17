@@ -71,6 +71,32 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="sidebar-menu">
+                        <div th:switch="${session.identity}">
+                            <!--采用id作为标签索引，避免重名 -->
+                            <td th:case="0">
+                                <ul class="sidebar-menu">
+                                    <li class="treeview">
+                                        <a th:href="@{/toAddUser}">
+                                            <i class="fa fa-dashboard"></i> <span>添加用户</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="treeview">
+                                        <a th:href="@{/toqueryUserInfo}">
+                                            <i class="fa fa-laptop"></i> <span>查询用户资料</span>
+                                        </a>
+                                    </li>
+
+                                    <li class="treeview">
+                                        <a th:href="@{/showAllUser}">
+                                            <i class="fa fa-edit"></i>
+                                            <span>用户信息管理</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </td>
+                            <td th:case="1"></td>
+                        </div>
 
                         <li class="treeview">
                             <a th:href="@{/toAddEng}">
@@ -210,6 +236,31 @@
     }
 </script>
 
+<!-- //删除提示js -->
+<script type="text/javascript">
+    const deleteALl = document.getElementById('deleteAll');
+    deleteALl.onclick=function () {
+        const msg = "确定要删除所有工程师信息吗";
+        if(confirm(msg) == true){
+            return true;
+        }
+        return false;
+    }
+
+    function checkIdInput() {
+        const val = findById.value;
+        const p = /^\d+$/;
+        if(val !="") {
+            if (p.test(val)) {
+                return true;
+            } else {
+                alert("按照ID查询请正确输入");
+                return false;
+            }
+        }
+    }
+</script>
+
 <!--scrolling js-->
 <script src="js/jquery.nicescroll.js"></script>
 <script src="js/scripts.js"></script>
@@ -239,8 +290,8 @@
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" >
-                <form th:action="@{/queryEngbyIddelete}" method="post" style="float: right" class="form-inline">
-                    <input type="number" name="engineerId" class="form-control" placeholder="请输入要删除的工程师ID">
+                <form th:action="@{/queryEngbyIddelete}" method="post" style="float: right" class="form-inline" onsubmit="return checkIdInput()">
+                    <input type="text" name="engineerId" id="findId"  class="form-control" placeholder="请输入要删除的工程师ID">
                     <input type="submit" value="查询" class="btn btn-primary">
                 </form>
             </div>

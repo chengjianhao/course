@@ -48,11 +48,9 @@
             height: 295px;
         }
     </style>
-
 </head>
 
 <body class="cbp-spmenu-push">
-
 <div class="main-content">
     <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
         <!--left-fixed -navigation-->
@@ -285,17 +283,18 @@
                 <h3>工程师信息管理</h3>
             </div>
         </div>
-
         <div class="row">
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" >
-                <form th:action="@{/queryEngbyIdUpdate}" method="post" style="float: right" class="form-inline" onsubmit="return checkIdInput()">
-                    <input type="text" name="engineerId" id="findId" class="form-control" placeholder="请输入要更新的工程师ID">
+                <form th:action="@{/queryEngById}" method="post" style="float: right" class="form-inline" onsubmit="return checkIdInput()">
+                    <input type="text" name="engineerId" id="findId" class="form-control" placeholder="请输入要查询的工程师ID">
                     <input type="submit" value="查询" class="btn btn-primary">
                 </form>
             </div>
         </div>
+
+
     </div>
 
     <div class="row clearfix">
@@ -313,7 +312,6 @@
                     <th>工龄</th>
                     <th>基本薪水</th>
                     <th>学历</th>
-                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -337,22 +335,13 @@
                         <td th:case="3">博士</td>
                         <td th:case="4">其他</td>
                     </div>
-                    <!--采用id作为标签索引，避免重名 -->
-                    <td>
-                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a>
-                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    </form>
+
 </div>
 </body>
-
 </html>
-
-
-
-
 
