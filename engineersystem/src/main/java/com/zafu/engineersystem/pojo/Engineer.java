@@ -19,8 +19,10 @@ public class Engineer {
     @NotNull(message = "性别不能为空")
     private int engineerSex;
 
+    @Length(max=20, message = "姓名超出填写长度")
     private String engineerName;
 
+    @Length(max=20, message = "地址超出填写长度")
     private String engineerAddress;
 
     @Length(max=11, message = "手机号码不能超过11位")

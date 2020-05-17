@@ -23,10 +23,10 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `engineer`;
 CREATE TABLE `engineer`  (
   `engineer_id` int(11) NOT NULL AUTO_INCREMENT,
-  `engineer_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `engineer_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `engineer_sex` int(1) NULL DEFAULT NULL,
-  `engineer_address` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
-  `engineer_telephone` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `engineer_address` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `engineer_telephone` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `engineer_birthday` date NULL DEFAULT NULL,
   `engineer_native` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `engineer_seniority` int(2) NULL DEFAULT NULL,
@@ -39,19 +39,19 @@ CREATE TABLE `engineer`  (
 -- ----------------------------
 -- Records of engineer
 -- ----------------------------
-INSERT INTO `engineer` VALUES (15, '张三', 1, '浙江', 'xxxxxxxxxx', '2020-05-14', '台州', 2, 2345.00, '2', 2110.50);
-INSERT INTO `engineer` VALUES (16, '李四', 1, '浙江台州', '123123', '2020-05-21', '浙江', 3, 3246.00, '2', 2921.40);
-INSERT INTO `engineer` VALUES (17, '王五', 1, '浙江', '123123123', '2020-05-13', '台州', 1, 1268.00, '2', 1386.70);
-INSERT INTO `engineer` VALUES (18, '小明', 1, '浙江', 'xxxxxxxxxx', '2020-05-22', '台州', 3, 2367.00, '2', 2130.30);
-INSERT INTO `engineer` VALUES (19, '123', 1, '浙江', '123123', '2020-05-14', '台州', 2, 40.00, '3', 36.00);
+INSERT INTO `engineer` VALUES (15, '张三', 1, '浙江', '18858683997', '1999-05-14', '台州', 2, 2345.00, '2', 2110.50);
+INSERT INTO `engineer` VALUES (16, '李四', 1, '浙江台州', '18858683995', '1999-05-21', '浙江', 3, 3246.00, '2', 2921.40);
+INSERT INTO `engineer` VALUES (17, '王五', 1, '浙江', '18858683917', '1989-05-13', '台州', 1, 1268.00, '2', 1386.70);
+INSERT INTO `engineer` VALUES (18, '小明', 1, '浙江', '18858683976', '1998-05-22', '台州', 3, 2367.00, '2', 2130.30);
+INSERT INTO `engineer` VALUES (19, '123', 1, '浙江', '18858683944', '1995-05-14', '台州', 2, 40.00, '3', 36.00);
 
 -- ----------------------------
 -- Table structure for record
 -- ----------------------------
 DROP TABLE IF EXISTS `record`;
 CREATE TABLE `record`  (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `operation` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `time` timestamp(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
@@ -84,12 +84,12 @@ INSERT INTO `record` VALUES (22, 'root', '修改用户111', '2020-05-10 22:24:17
 DROP TABLE IF EXISTS `salary`;
 CREATE TABLE `salary`  (
   `engineer_id` int(11) NOT NULL,
-  `engineer_name` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
+  `engineer_name` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL,
   `engineer_salary` decimal(10, 2) NULL DEFAULT NULL,
   `engineer_workday` int(2) NULL DEFAULT NULL,
-  `engineer_kpi` decimal(10, 0) NULL DEFAULT NULL,
+  `engineer_kpi` decimal(10, 2) NULL DEFAULT NULL,
   `engineer_seniority` int(2) NULL DEFAULT NULL,
-  `engineer_insurance` decimal(10, 0) NULL DEFAULT NULL,
+  `engineer_insurance` decimal(10, 2) NULL DEFAULT NULL,
   `engineer_finalsalary` decimal(10, 2) NULL DEFAULT NULL,
   PRIMARY KEY (`engineer_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;
@@ -109,8 +109,8 @@ INSERT INTO `salary` VALUES (19, '123', 40.00, NULL, NULL, 2, NULL, 36.00);
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `username` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `password` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `identity` int(1) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci ROW_FORMAT = Dynamic;

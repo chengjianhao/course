@@ -37,7 +37,7 @@ public class CURDController {
         if(!engineerName.equals("")) {
             Engineer eng = engService.getEngByName(engineerName);
             model.addAttribute("eng", eng);
-            return "showEng";
+            return "daohanglan";
         }else{
             //输入为空时显示所有工程师信息
             return "redirect:/showAllEng";
@@ -125,7 +125,6 @@ public class CURDController {
             model.addAttribute("eng",eng);
             return "showEngbyId";
         }
-
     }
 
     //根据姓名查工程师信息
@@ -322,6 +321,33 @@ public class CURDController {
             recordService.addRecord(record);
         }
         return "redirect:/showAllEng";
+    }
+
+    //根据姓名更新工程师薪水信息
+    @RequestMapping("/toupdateSalarybyName")
+    public String toupdateSalarybyName(){
+        return "updateSalarybyName";
+    }
+
+    //根据姓名查询工程师修改薪水信息
+    @RequestMapping("/queryByNameSalary")
+    public String queryByNameSalary(String engineerName, Model model){
+        if(!engineerName.equals("")) {
+            Engineer eng = engService.getEngByName(engineerName);
+            model.addAttribute("eng", eng);
+            return "updateSalarybyName";
+        }else{
+            //输入为空时显示所有工程师信息
+            return "redirect:/updateAllSalarybyName";
+        }
+    }
+
+    //修改所有工程师薪水信息,通过姓名
+    @RequestMapping("/updateAllSalarybyName")
+    public String updateAllSalarybyName(Model model){
+        List<Engineer> allEng = engService.getAllEng();
+        model.addAttribute("eng",allEng);
+        return "updateSalarybyName";
     }
 
     //跳转到计算工程师薪水信息页面

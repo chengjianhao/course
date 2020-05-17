@@ -250,7 +250,7 @@
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
-                <h3>工程师信息管理</h3>
+                <h3>修改工程师月薪信息</h3>
             </div>
         </div>
 
@@ -258,8 +258,8 @@
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" ></div>
             <div class="col-md-4 column" >
-                <form th:action="@{/queryEngbyIdUpdate}" method="post" style="float: right" class="form-inline" onsubmit="return checkIdInput()">
-                    <input type="text" name="engineerId" id="findId" class="form-control" placeholder="请输入要更新的工程师ID">
+                <form th:action="@{/queryByNameSalary}" method="post" style="float: right" class="form-inline">
+                    <input type="text" name="engineerName" class="form-control" placeholder="请输入该工程师姓名">
                     <input type="submit" value="查询" class="btn btn-primary">
                 </form>
             </div>
@@ -307,7 +307,7 @@
                     </div>
                     <!--采用id作为标签索引，避免重名 -->
                     <td>
-                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a>
+                        <a class="btn btn-sm btn-info" th:href="@{/toUpdateSalary/}+${engs.getEngineerId()}">修改薪水信息</a>
                     </td>
                 </tr>
                 </tbody>
@@ -342,7 +342,6 @@
         }
     }
 </script>
-
 
 </body>
 

@@ -1,16 +1,251 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html"; charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>欢迎使用工程师资料管理系统</title>
     <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/jquery-3.3.1.min.js}">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+
+    <!-- font-awesome icons CSS -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- //font-awesome icons CSS-->
+
+    <!-- side nav css file -->
+    <link href='css/SidebarNav.min.css' media='all' rel='stylesheet' type='text/css'/>
+    <!-- //side nav css file -->
+
+    <!-- js-->
+    <script src="js/jquery-1.11.1.min.js"></script>
+    <script src="js/modernizr.custom.js"></script>
+
+    <!--webfonts-->
+    <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+    <!--//webfonts-->
+
+    <!-- chart -->
+    <script src="js/Chart.js"></script>
+    <!-- //chart -->
+
+    <!-- Metis Menu -->
+    <script src="js/metisMenu.min.js"></script>
+    <script src="js/custom.js"></script>
+    <link href="css/custom.css" rel="stylesheet">
+    <!--//Metis Menu -->
+    <style>
+        #chartdiv {
+            width: 100%;
+            height: 295px;
+        }
+    </style>
 
 </head>
 
-<body>
-<div class="container">
+<body class="cbp-spmenu-push">
+<div class="main-content">
+    <div class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1">
+        <!--left-fixed -navigation-->
+        <aside class="sidebar-left">
+            <nav class="navbar navbar-inverse">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <h1><a class="navbar-brand" href="#">
+                        <span class="fa fa-area-chart"></span> 工程师
+                        <span class="dashboard_text">人事管理系统</span></a></h1>
+                </div>
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="sidebar-menu">
+                        <li class="treeview" th:switch="${session.identity}">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i> <span>用户管理模块</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu" th:case="0">
+                                <li class="treeview">
+                                    <a th:href="@{/toAddUser}">
+                                        <i class="fa fa-dashboard"></i> <span>添加用户</span>
+                                    </a>
+                                <li class="treeview">
+                                    <a th:href="@{/toqueryUserInfo}">
+                                        <i class="fa fa-laptop"></i> <span>查询用户资料</span>
+                                    </a>
+                                </li>
+                                <li class="treeview">
+                                    <a th:href="@{/showAllUser}">
+                                        <i class="fa fa-edit"></i>
+                                        <span>用户信息管理</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="treeview-menu" th:case="1"></ul>
+                        </li>
+                        <li class="treeview">
+                            <a th:href="@{/toAddEng}">
+                                <i class="fa fa-dashboard"></i> <span>添加工程师</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i> <span>查询工程师资料</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/toqueryEngbyName}"><i class="fa fa-angle-right"></i> 按照姓名查询</a></li>
+                                <li><a th:href="@{/toqueryEngbyId}"><i class="fa fa-angle-right"></i> 按照ID查询</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-laptop"></i> <span>删除工程师资料</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/todeleteEngbyName}"><i class="fa fa-angle-right"></i> 按照姓名删除</a></li>
+                                <li><a th:href="@{/todeleteEngbyId}"><i class="fa fa-angle-right"></i> 按照ID删除</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-edit"></i>
+                                <span>修改工程师资料</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a th:href="@{/toupdateEngbyName}"><i class="fa fa-angle-right"></i> 按照姓名修改</a></li>
+                                <li><a th:href="@{/toupdateEngbyId}"><i class="fa fa-angle-right"></i> 按照ID修改</a></li>
+                            </ul>
+                        </li>
+                        <li class="treeview">
+                            <a th:href="@{/toupdateSalarybyName}">
+                                <i class="fa fa-edit"></i>
+                                <span>修改工程师月薪资料</span>
+                            </a>
+                        </li>
+                        <li class="treeview">
+                            <a href="#">
+                                <i class="fa fa-pie-chart"></i>
+                                <span>排序</span>
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </a>
+
+                            <ul class="treeview-menu">
+                                <li><a th:name="order" th:value=1 th:href="@{/showAllEng}"><i class="fa fa-angle-right"></i> 按照编号升序</a></li>
+                                <li><a th:name="order" th:value=2 th:href="@{/showAllEngOrderByNameAsc}"><i class="fa fa-angle-right"></i> 按照姓名升序</a></li>
+                                <li><a th:name="order" th:value=3 th:href="@{/showAllEngOrderBySeniorityDesc}"><i class="fa fa-angle-right"></i> 按照工龄降序</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a th:href="@{/showAllEngInfo}">
+                                <i class="fa fa-th"></i> <span>输出所有工程师资料</span>
+                                <small class="label pull-right label-info">new</small>
+                            </a>
+                        </li>
+                        <li><a th:href="@{/showAllEngSalary}"><i class="fa fa-th"></i> <span>工程师资料信息报表</span></a></li>
+                        <li><a th:href="@{/deleteAllEng}" th:id="deleteAll"><i class="fa fa-angle-right text-aqua"></i> <span>清空所有工程师资料</span></a></li>
+                        <li><a th:href="@{logout}"><i class="fa fa-angle-right text-aqua"></i> <span>退出</span></a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </nav>
+        </aside>
+    </div>
+</div>
+
+<!--left-fixed -navigation-->
+<!-- header-starts -->
+
+<div class="sticky-header header-section ">
+    <!-- 上侧退出等信息 -->
+    <div class="header-left">
+        <!--toggle button start-->
+        <button id="showLeftPush"><i class="fa fa-bars"></i></button>
+        <!--toggle button end-->
+    </div>
+
+    <div class="header-right">
+        <!--toggle button start-->
+        <div id="head2_kxt3" class="sub-login-right">
+            <a th:href="@{logout}" style="float: right" class="btn btn-primary">注销</a>
+        </div>
+    </div>
+
+    <div class="clearfix"></div>
+</div>
+
+<!-- Classie --><!-- for toggle left push menu script -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+
+<!-- //Classie --><!-- //导航栏下滑js -->
+<script src="js/classie.js"></script>
+<script>
+    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
+        showLeftPush = document.getElementById( 'showLeftPush' ),
+        body = document.body;
+
+    showLeftPush.onclick = function() {
+        classie.toggle( this, 'active' );
+        classie.toggle( body, 'cbp-spmenu-push-toright' );
+        classie.toggle( menuLeft, 'cbp-spmenu-open' );
+        disableOther( 'showLeftPush' );
+    };
+
+    function disableOther( button ) {
+        if( button !== 'showLeftPush' ) {
+            classie.toggle( showLeftPush, 'disabled' );
+        }
+    }
+</script>
+
+<!--scrolling js-->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!--//scrolling js-->
+
+<!-- side nav js -->
+<script src='js/SidebarNav.min.js' type='text/javascript'></script>
+<script>
+    $('.sidebar-menu').SidebarNav()
+</script>
+<!-- //side nav js -->
+
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.js"> </script>
+<!-- //Bootstrap Core JavaScript -->
+
+<div id="page-wrapper">
     <div class="row clearfix">
         <div class="col-md-12 column">
             <div class="page-header">
@@ -84,8 +319,32 @@
     </form>
 </div>
 
-<script src="/js/filter.js">
+<script src="/js/filter.js"></script>
 
+<!-- //删除提示js -->
+<script type="text/javascript">
+    const deleteALl = document.getElementById('deleteAll');
+    const findById = document.getElementById('findId');
+    deleteALl.onclick=function () {
+        const msg = "确定要删除所有工程师信息吗";
+        if(confirm(msg) == true){
+            return true;
+        }
+        return false;
+    }
+
+    function checkIdInput() {
+        const val = findById.value;
+        const p = /^\d+$/;
+        if(val !="") {
+            if (p.test(val)) {
+                return true;
+            } else {
+                alert("按照ID查询请正确输入");
+                return false;
+            }
+        }
+    }
 </script>
 
 </body>

@@ -84,23 +84,30 @@ public class ManageController {
     }
 
     @RequestMapping("/addUser")
-    public String addUser(User user, HttpSession session, Model model){
-        if(userService.addUser(user) == 1){
-            Record record = new Record();
-            String userInfo = session.getAttribute("userInfo").toString();
-            record.setUsername(userInfo);
-            record.setOperation("添加用户 "+user.getUsername());
-            record.setTime(new Timestamp((System.currentTimeMillis())));
-            recordService.addRecord(record);
-        }
-        else{
-            List<FieldError> list = new ArrayList<FieldError>(1);
-            FieldError fielderror = new FieldError("addError","addError","用户名："+user.getUsername()+" 已经被添加");
-            list.add(fielderror);
+    public String addUser(@Valid User user, BindingResult bindingResult, HttpSession session, Model model){
+        if(bindingResult.hasErrors()){
+            List<FieldError> list = bindingResult.getFieldErrors();
             model.addAttribute("error",list);
             return "addUser";
         }
-        return "redirect:/showAllUser";
+        else {
+            if (userService.addUser(user) == 1) {
+                Record record = new Record();
+                String userInfo = session.getAttribute("userInfo").toString();
+                record.setUsername(userInfo);
+                record.setOperation("添加用户 " + user.getUsername());
+                record.setTime(new Timestamp((System.currentTimeMillis())));
+                recordService.addRecord(record);
+            }
+            else {
+                List<FieldError> list = new ArrayList<FieldError>(1);
+                FieldError fielderror = new FieldError("addError", "addError", "用户名：" + user.getUsername() + " 已经被添加");
+                list.add(fielderror);
+                model.addAttribute("error", list);
+                return "addUser";
+            }
+            return "redirect:/showAllUser";
+        }
     }
 
     //跳转到修改用户信息页面

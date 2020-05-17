@@ -33,10 +33,6 @@
     <link href="http://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
     <!--//webfonts-->
 
-    <!-- chart -->
-    <script src="js/Chart.js"></script>
-    <!-- //chart -->
-
     <!-- Metis Menu -->
     <script src="js/metisMenu.min.js"></script>
     <script src="js/custom.js"></script>
@@ -48,7 +44,6 @@
             height: 295px;
         }
     </style>
-
 </head>
 
 <body class="cbp-spmenu-push">
@@ -245,110 +240,6 @@
 <script src="js/bootstrap.js"> </script>
 <!-- //Bootstrap Core JavaScript -->
 
-
-<div id="page-wrapper">
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <div class="page-header">
-                <h3>工程师信息管理</h3>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-4 column" ></div>
-            <div class="col-md-4 column" ></div>
-            <div class="col-md-4 column" >
-                <form th:action="@{/queryEngbyIdUpdate}" method="post" style="float: right" class="form-inline" onsubmit="return checkIdInput()">
-                    <input type="text" name="engineerId" id="findId" class="form-control" placeholder="请输入要更新的工程师ID">
-                    <input type="submit" value="查询" class="btn btn-primary">
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <div class="row clearfix">
-        <div class="col-md-12 column">
-            <table class="table table-hover table=striped">
-                <thead>
-                <tr>
-                    <th>工号</th>
-                    <th>姓名</th>
-                    <th>性别</th>
-                    <th>地址</th>
-                    <th>电话</th>
-                    <th>生日</th>
-                    <th>籍贯</th>
-                    <th>工龄</th>
-                    <th>基本薪水</th>
-                    <th>学历</th>
-                    <th>操作</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="engs:${eng}">
-                    <td th:text="${engs.getEngineerId()}"></td>
-                    <td th:text="${engs.getEngineerName()}"></td>
-                    <div th:switch="${engs.getEngineerSex()}">
-                        <td th:case="1">男</td>
-                        <td th:case="0">女</td>
-                    </div>
-                    <td th:text="${engs.getEngineerAddress()}"></td>
-                    <td th:text="${engs.getEngineerTelephone()}"></td>
-                    <td th:text="${#dates.format(engs.getEngineerBirthday(),'yyyy-MM-dd')}"></td>
-                    <td th:text="${engs.getEngineerNative()}"></td>
-                    <td th:text="${engs.getEngineerSeniority()}"></td>
-                    <td th:text="${engs.getEngineerSalary()}"></td>
-                    <div th:switch="${engs.getEngineerEducation()}">
-                        <td th:case="0">高中</td>
-                        <td th:case="1">学士</td>
-                        <td th:case="2">硕士</td>
-                        <td th:case="3">博士</td>
-                        <td th:case="4">其他</td>
-                    </div>
-                    <!--采用id作为标签索引，避免重名 -->
-                    <td>
-                        <a class="btn btn-sm btn-primary" th:href="@{/toUpdateEng/}+${engs.getEngineerId()}">编辑</a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-    </form>
-</div>
-
-<!-- //删除提示js -->
-<script type="text/javascript">
-    const deleteALl = document.getElementById('deleteAll');
-    const findById = document.getElementById('findId');
-    deleteALl.onclick=function () {
-        const msg = "确定要删除所有工程师信息吗";
-        if(confirm(msg) == true){
-            return true;
-        }
-        return false;
-    }
-
-    function checkIdInput() {
-        const val = findById.value;
-        const p = /^\d+$/;
-        if(val !="") {
-            if (p.test(val)) {
-                return true;
-            } else {
-                alert("按照ID查询请正确输入");
-                return false;
-            }
-        }
-    }
-</script>
-
-
 </body>
-
 </html>
-
-
-
-
 
