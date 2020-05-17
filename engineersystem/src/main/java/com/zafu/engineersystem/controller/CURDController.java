@@ -37,7 +37,7 @@ public class CURDController {
         if(!engineerName.equals("")) {
             Engineer eng = engService.getEngByName(engineerName);
             model.addAttribute("eng", eng);
-            return "daohanglan";
+            return "showEng";
         }else{
             //输入为空时显示所有工程师信息
             return "redirect:/showAllEng";
