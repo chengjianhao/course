@@ -208,27 +208,6 @@
     }
 </script>
 
-<!-- //Classie --><!-- //导航栏下滑js -->
-<script src="/js/classie.js"></script>
-<script>
-    var menuLeft = document.getElementById( 'cbp-spmenu-s1' ),
-        showLeftPush = document.getElementById( 'showLeftPush' ),
-        body = document.body;
-
-    showLeftPush.onclick = function() {
-        classie.toggle( this, 'active' );
-        classie.toggle( body, 'cbp-spmenu-push-toright' );
-        classie.toggle( menuLeft, 'cbp-spmenu-open' );
-        disableOther( 'showLeftPush' );
-    };
-
-    function disableOther( button ) {
-        if( button !== 'showLeftPush' ) {
-            classie.toggle( showLeftPush, 'disabled' );
-        }
-    }
-</script>
-
 <!--scrolling js-->
 <script src="/js/jquery.nicescroll.js"></script>
 <script src="/js/scripts.js"></script>
@@ -244,7 +223,6 @@
 <!-- Bootstrap Core JavaScript -->
 <script src="/js/bootstrap.js"> </script>
 <!-- //Bootstrap Core JavaScript -->
-
 
 <div id="page-wrapper">
     <div class="row clearfix">
@@ -317,7 +295,6 @@
     </form>
 </div>
 
-
 <!-- //删除提示js -->
 <script type="text/javascript">
     const deleteALl = document.getElementById('deleteAll');
@@ -343,7 +320,6 @@
         }
     }
 </script>
-
 
 </body>
 

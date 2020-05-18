@@ -14,7 +14,7 @@ import javax.validation.constraints.Min;
 public class SalaryInfo {
     private int engineerId;
 
-    @Length(max=10, message = "姓名超出范围长度，不能大于10")
+    @Length(max=20, message = "姓名超出范围长度，不能大于10")
     private String engineerName;
 
     @Min(value = 0,message = "基本薪水不能小于0")
